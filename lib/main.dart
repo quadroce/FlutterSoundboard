@@ -7,8 +7,6 @@ import 'package:audioplayers/audio_cache.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  
-  
   // This widget is the root of your application.
 
   @override
@@ -16,7 +14,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-       
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'SpeakTamil With Sasiccio'),
@@ -24,64 +21,62 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
 class SecondRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AudioCache _audioCache2;
     _audioCache2 = AudioCache(
         fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.RELEASE));
-  AudioPlayer.logEnabled = true;
-        return Scaffold(
-          appBar: AppBar(
-            title: Text("Napoli Edition"),
-          actions: <Widget>[IconButton(
-                  icon: const Icon(Icons.wb_sunny),
-                  tooltip: 'Napoli Edition',
-                  onPressed: () {
-              Navigator.pop(context);
+    AudioPlayer.logEnabled = true;
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Napoli Edition"),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.wb_sunny),
+              tooltip: 'Napoli Edition',
+              onPressed: () {
+                Navigator.pop(context);
               },
-                ),],), 
-          body:GridView.count(
-                // Create a grid with 2 columns. If you change the scrollDirection to
-                // horizontal, this produces 2 rows.
-                crossAxisCount: 2,
-                // Generate 100 widgets that display their index in the List.
-    
-                children: <Widget>[
-                  Container(
-                      padding: const EdgeInsets.all(8),
-                      child: FlatButton(
-                        onPressed: () => _audioCache2.play("sounds/bem.mp3"),
-                        child: Image(
-                          image: AssetImage('assets/images/napoli.png'),
-                        ),
-                      )),
-                  Container(
-                      padding: const EdgeInsets.all(8),
-                      child: FlatButton(
-                        onPressed: () => _audioCache2.play("sounds/strunz.mp3"),
-                        child: Image(image: AssetImage('assets/images/napoli.png')),
-                      
-                      )),
-                  Container(
-                      padding: const EdgeInsets.all(8),
-                      child: FlatButton(
-                        onPressed: () => _audioCache2.play("sounds/kitemurt.mp3"),
-                        child: Image(image: AssetImage('assets/images/napoli.png')),
-                      )),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: FlatButton(
-                        onPressed: () => _audioCache2.play("sounds/sfacimm.mp3"),
+            ),
+          ],
+        ),
+        body: GridView.count(
+            // Create a grid with 2 columns. If you change the scrollDirection to
+            // horizontal, this produces 2 rows.
+            crossAxisCount: 2,
+            // Generate 100 widgets that display their index in the List.
+
+            children: <Widget>[
+              Container(
+                  padding: const EdgeInsets.all(8),
+                  child: FlatButton(
+                    onPressed: () => _audioCache2.play("sounds/bem.mp3"),
+                    child: Image(
+                      image: AssetImage('assets/images/napoli.png'),
+                    ),
+                  )),
+              Container(
+                  padding: const EdgeInsets.all(8),
+                  child: FlatButton(
+                    onPressed: () => _audioCache2.play("sounds/strunz.mp3"),
+                    child: Image(image: AssetImage('assets/images/napoli.png')),
+                  )),
+              Container(
+                  padding: const EdgeInsets.all(8),
+                  child: FlatButton(
+                    onPressed: () => _audioCache2.play("sounds/kitemurt.mp3"),
+                    child: Image(image: AssetImage('assets/images/napoli.png')),
+                  )),
+              Container(
+                padding: const EdgeInsets.all(8),
+                child: FlatButton(
+                    onPressed: () => _audioCache2.play("sounds/sfacimm.mp3"),
                     child: Image.asset('assets/images/napoli.png')),
-                 ),
-            ])
-            );
+              ),
+            ]));
   }
 }
-
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -102,8 +97,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
-
   AudioCache _audioCache;
 
   @override
@@ -112,38 +105,28 @@ class _MyHomePageState extends State<MyHomePage> {
     // create this only once
     _audioCache = AudioCache(
         fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.RELEASE));
-
-    
   }
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
 
     return Scaffold(
         appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
-          actions: <Widget>[
+            actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.wb_sunny),
               tooltip: 'Napoli Edition',
               onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => SecondRoute()),
-            );
-          },
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SecondRoute()),
+                );
+              },
             ),
-            
           ],
         ),
+       
         body: GridView.count(
             // Create a grid with 2 columns. If you change the scrollDirection to
             // horizontal, this produces 2 rows.
@@ -176,8 +159,33 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: FlatButton(
                     onPressed: () => _audioCache.play("sounds/hotta.mp3"),
                     child: Image.asset('assets/images/csk.png')),
-                
               ),
-            ]));
+              Container(
+                child: RaisedButton(
+                  onPressed: () {
+                    final snackBar = SnackBar(
+                      content: Text('Yay! A SnackBar!'),
+                      action: SnackBarAction(
+                        label: 'Undo',
+                        onPressed: () {
+                          // Some code to undo the change.
+                        },
+                      ),
+                    );
+
+                    // Find the Scaffold in the widget tree and use
+                    // it to show a SnackBar.
+                 Scaffold.of(context).showSnackBar(snackBar);
+    
+                  },
+                  child: Text('Show SnackBar'),
+                  
+                ),
+              )
+
+            ]
+            )
+            
+            );
   }
 }
