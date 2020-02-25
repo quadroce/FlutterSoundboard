@@ -21,6 +21,125 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key key, this.title}) : super(key: key);
+
+  // This widget is the home page of your application. It is stateful, meaning
+  // that it has a State object (defined below) that contains fields that affect
+  // how it looks.
+
+  // This class is the configuration for the state. It holds the values (in this
+  // case the title) provided by the parent (in this case the App widget) and
+  // used by the build method of the State. Fields in a Widget subclass are
+  // always marked "final".
+
+  final String title;
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  AudioCache _audioCache;
+ final _scaffoldKey = GlobalKey<ScaffoldState>(); // new line
+  @override
+  void initState() {
+    super.initState();
+    // create this only once
+    _audioCache = AudioCache(
+        fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.RELEASE));
+        
+  }
+
+  @override
+  Widget build(BuildContext context) 
+  
+  {
+   
+    return Scaffold(
+       key: _scaffoldKey,                        
+        appBar: AppBar(
+          title: Text(widget.title),
+          actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.wb_sunny),
+              tooltip: 'Napoli Edition',
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SecondRoute()),
+                );
+              },
+            ),
+          ],
+        ),
+        body: GridView.count(
+            // Create a grid with 2 columns. If you change the scrollDirection to
+            // horizontal, this produces 2 rows.
+            crossAxisCount: 2,
+            // Generate 100 widgets that display their index in the List.
+
+            children: <Widget>[
+              Container(
+                  padding: const EdgeInsets.all(8),
+                  child: FlatButton(
+                    onPressed: () => _audioCache.play("sounds/kundapaya.mp3"),
+                    child: Image(
+                      image: AssetImage('assets/images/csk.png'),
+                    ),
+                  )),
+              Container(
+                  padding: const EdgeInsets.all(8),
+                  child: FlatButton(
+                      onPressed: () => _audioCache.play("sounds/cinnasutu.mp3"),
+                      child: Column(
+                        // Replace with a Row for horizontal icon + text
+                        children: <Widget>[
+                          Image(image: AssetImage('assets/images/csk.png')),
+                          Text(
+                            "Cinnasutu",
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.black,
+                            ),
+                          )
+                        ],
+                      ))),
+              Container(
+                  padding: const EdgeInsets.all(8),
+                  child: FlatButton(
+                    onPressed: () => _audioCache.play("sounds/periemole.mp3"),
+                    child: Image(image: AssetImage('assets/images/csk.png')),
+                  )),
+              Container(
+                padding: const EdgeInsets.all(8),
+                child: FlatButton(
+                    onPressed: () => _audioCache.play("sounds/hotta.mp3"),
+                    child: Image.asset('assets/images/csk.png')),
+              ),
+              Container(
+                child: RaisedButton(
+                  
+                  textColor: Colors.black,
+                  onPressed: _displaySnackBar(context),
+                  child: Text('Display SnackBar 2'),
+                ),
+                
+              )
+            ]
+            )
+            );
+
+  }
+
+_displaySnackBar(BuildContext context) {
+  final snackBar = SnackBar(content: Text('Are you talkin\' to me?'));
+    _scaffoldKey.currentState.showSnackBar(snackBar);   
+}
+
+}
+
 class SecondRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -75,117 +194,5 @@ class SecondRoute extends StatelessWidget {
                     child: Image.asset('assets/images/napoli.png')),
               ),
             ]));
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  AudioCache _audioCache;
-
-  @override
-  void initState() {
-    super.initState();
-    // create this only once
-    _audioCache = AudioCache(
-        fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.RELEASE));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-            actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.wb_sunny),
-              tooltip: 'Napoli Edition',
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SecondRoute()),
-                );
-              },
-            ),
-          ],
-        ),
-       
-        body: GridView.count(
-            // Create a grid with 2 columns. If you change the scrollDirection to
-            // horizontal, this produces 2 rows.
-            crossAxisCount: 2,
-            // Generate 100 widgets that display their index in the List.
-
-            children: <Widget>[
-              Container(
-                  padding: const EdgeInsets.all(8),
-                  child: FlatButton(
-                    onPressed: () => _audioCache.play("sounds/kundapaya.mp3"),
-                    child: Image(
-                      image: AssetImage('assets/images/csk.png'),
-                    ),
-                  )),
-              Container(
-                  padding: const EdgeInsets.all(8),
-                  child: FlatButton(
-                    onPressed: () => _audioCache.play("sounds/cinnasutu.mp3"),
-                    child: Image(image: AssetImage('assets/images/csk.png')),
-                  )),
-              Container(
-                  padding: const EdgeInsets.all(8),
-                  child: FlatButton(
-                    onPressed: () => _audioCache.play("sounds/periemole.mp3"),
-                    child: Image(image: AssetImage('assets/images/csk.png')),
-                  )),
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: FlatButton(
-                    onPressed: () => _audioCache.play("sounds/hotta.mp3"),
-                    child: Image.asset('assets/images/csk.png')),
-              ),
-              Container(
-                child: RaisedButton(
-                  onPressed: () {
-                    final snackBar = SnackBar(
-                      content: Text('Yay! A SnackBar!'),
-                      action: SnackBarAction(
-                        label: 'Undo',
-                        onPressed: () {
-                          // Some code to undo the change.
-                        },
-                      ),
-                    );
-
-                    // Find the Scaffold in the widget tree and use
-                    // it to show a SnackBar.
-                 Scaffold.of(context).showSnackBar(snackBar);
-    
-                  },
-                  child: Text('Show SnackBar'),
-                  
-                ),
-              )
-
-            ]
-            )
-            
-            );
   }
 }
