@@ -3,6 +3,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
+import 'package:ads/ads.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -37,6 +39,7 @@ class MyHomePage extends StatefulWidget {
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
+  
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -49,12 +52,14 @@ class _MyHomePageState extends State<MyHomePage> {
     _audioCache = AudioCache(
         fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.RELEASE));
         
+  
   }
 
   @override
   Widget build(BuildContext context) 
   
   {
+  
    
     return Scaffold(
        key: _scaffoldKey,                        
@@ -98,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Image(image: AssetImage('assets/images/csk.png')),
                           Text(
                             "Cinnasutu",
+                            
                             style: TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w700,
@@ -120,24 +126,25 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Container(
                 child: RaisedButton(
-                  
                   textColor: Colors.black,
-                  onPressed: _displaySnackBar(context),
-                  child: Text('Display SnackBar 2'),
+                onPressed: ()=> _displaySnackBar(context),
+            
+                  child: Text('New Phrases Coming Soon'),
                 ),
                 
               )
+            
             ]
+            
             )
+            
             );
 
   }
-
-_displaySnackBar(BuildContext context) {
+ _displaySnackBar(BuildContext context) {
   final snackBar = SnackBar(content: Text('Are you talkin\' to me?'));
     _scaffoldKey.currentState.showSnackBar(snackBar);   
-}
-
+} 
 }
 
 class SecondRoute extends StatelessWidget {

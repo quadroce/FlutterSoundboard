@@ -17,6 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  ads: ^1.7.2
   flutter:
     sdk: flutter
 
@@ -27,7 +28,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+   
   flutter_launcher_icons: "^0.7.3"
   
 flutter_icons:
