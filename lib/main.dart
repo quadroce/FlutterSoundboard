@@ -3,8 +3,9 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
-import 'package:ads/ads.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+//import 'package:ads/ads.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
       home: MyHomePage(title: 'SpeakTamil With Sasiccio'),
     );
@@ -39,30 +40,23 @@ class MyHomePage extends StatefulWidget {
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
-  
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   AudioCache _audioCache;
- final _scaffoldKey = GlobalKey<ScaffoldState>(); // new line
+  final _scaffoldKey = GlobalKey<ScaffoldState>(); // new line
   @override
   void initState() {
     super.initState();
     // create this only once
     _audioCache = AudioCache(
         fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.RELEASE));
-        
-  
   }
 
   @override
-  Widget build(BuildContext context) 
-  
-  {
-  
-   
+  Widget build(BuildContext context) {
     return Scaffold(
-       key: _scaffoldKey,                        
+        key: _scaffoldKey,
         appBar: AppBar(
           title: Text(widget.title),
           actions: <Widget>[
@@ -96,22 +90,24 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                   padding: const EdgeInsets.all(8),
                   child: FlatButton(
-                      onPressed: () => _audioCache.play("sounds/cinnasutu.mp3"),
-                      child: Column(
-                        // Replace with a Row for horizontal icon + text
+                      onPressed: () {
+                        return _audioCache.play("sounds/cinnasutu.mp3");
+                      },
+                     child: Column(
+                     
                         children: <Widget>[
                           Image(image: AssetImage('assets/images/csk.png')),
                           Text(
-                            "Cinnasutu",
+                            'சிறிய உட்கார்ந்து',
+                            style: GoogleFonts.catamaran(
                             
-                            style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.black,
+                              textStyle: TextStyle(
+                                  color: Colors.red, letterSpacing: .5),
                             ),
                           )
                         ],
-                      ))),
+                      ))
+                      ),
               Container(
                   padding: const EdgeInsets.all(8),
                   child: FlatButton(
@@ -121,30 +117,39 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 padding: const EdgeInsets.all(8),
                 child: FlatButton(
-                    onPressed: () => _audioCache.play("sounds/hotta.mp3"),
-                    child: Image.asset('assets/images/csk.png')),
+                    //    onPressed: () => _audioCache.play("sounds/hotta.mp3"),
+                    onPressed: () =>
+                        _soundandwrite(context, "sounds/hotta.mp3", "ஜ"),
+                    child: Image.asset('assets/images/Icona.jpg')),
               ),
-              Container(
+              /*Container(
                 child: RaisedButton(
                   textColor: Colors.black,
-                onPressed: ()=> _displaySnackBar(context),
-            
+                  onPressed: () => _displaySnackBar(context),
                   child: Text('New Phrases Coming Soon'),
                 ),
-                
-              )
-            
-            ]
-            
-            )
-            
-            );
-
+              )*/
+            ]));
   }
- _displaySnackBar(BuildContext context) {
-  final snackBar = SnackBar(content: Text('Are you talkin\' to me?'));
-    _scaffoldKey.currentState.showSnackBar(snackBar);   
-} 
+
+
+
+ 
+
+  _soundandwrite(BuildContext context, String _ad2, String parola) {
+    final snackBar = SnackBar(content: Text(parola));
+    _scaffoldKey.currentState.showSnackBar(snackBar);
+
+    _audioCache.play(_ad2);
+
+
+
+    return (context);
+  } 
+
+//it opens a SnackBar and Plays a Sound
+
+
 }
 
 class SecondRoute extends StatelessWidget {
