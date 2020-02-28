@@ -25,6 +25,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   audioplayers: ^0.14.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -36,7 +37,7 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon" 
   ios: true
-  image_path: "assets/images/sasi3.jpg"
+  image_path: "assets/images/Icona.jpg"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.deepOrange,
       ),
       home: MyHomePage(title: 'SpeakTamil With Sasiccio'),
     );
@@ -44,13 +44,18 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   AudioCache _audioCache;
+  List<String> suoniSasiccio = List();
+
   final _scaffoldKey = GlobalKey<ScaffoldState>(); // new line
+
   @override
   void initState() {
     super.initState();
     // create this only once
     _audioCache = AudioCache(
         fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.RELEASE));
+//List of Sounds
+    suoniSasiccio.add("sounds/hotta.mp3");
   }
 
   @override
@@ -93,21 +98,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () {
                         return _audioCache.play("sounds/cinnasutu.mp3");
                       },
-                     child: Column(
-                     
+                      child: Column(
                         children: <Widget>[
                           Image(image: AssetImage('assets/images/csk.png')),
                           Text(
                             'சிறிய உட்கார்ந்து',
                             style: GoogleFonts.catamaran(
-                            
                               textStyle: TextStyle(
                                   color: Colors.red, letterSpacing: .5),
                             ),
                           )
                         ],
-                      ))
-                      ),
+                      ))),
               Container(
                   padding: const EdgeInsets.all(8),
                   child: FlatButton(
@@ -119,8 +121,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: FlatButton(
                     //    onPressed: () => _audioCache.play("sounds/hotta.mp3"),
                     onPressed: () =>
-                        _soundandwrite(context, "sounds/hotta.mp3", "ஜ"),
-                    child: Image.asset('assets/images/Icona.jpg')),
+                        _soundandwrite(context, suoniSasiccio[0], "ஜ"),
+                    child: Image.asset('assets/images/csk.png')),
               ),
               /*Container(
                 child: RaisedButton(
@@ -129,26 +131,25 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text('New Phrases Coming Soon'),
                 ),
               )*/
-            ]));
+            ]
+            )
+            
+            );
   }
 
-
-
- 
-
   _soundandwrite(BuildContext context, String _ad2, String parola) {
-    final snackBar = SnackBar(content: Text(parola));
+    final snackBar = SnackBar(
+        content: Text(parola),
+        backgroundColor: Color.fromARGB(255, 255, 0, 0),
+        duration: Duration(seconds: 5));
     _scaffoldKey.currentState.showSnackBar(snackBar);
 
     _audioCache.play(_ad2);
 
-
-
     return (context);
-  } 
+  }
 
 //it opens a SnackBar and Plays a Sound
-
 
 }
 
