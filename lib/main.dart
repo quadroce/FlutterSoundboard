@@ -45,15 +45,17 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   AudioCache _audioCache;
   List<String> suoniSasiccio = List();
-
+  bool isSwitched = true;
   final _scaffoldKey = GlobalKey<ScaffoldState>(); // new line
 
   @override
   void initState() {
     super.initState();
     // create this only once
+
     _audioCache = AudioCache(
         fixedPlayer: AudioPlayer()..setReleaseMode(ReleaseMode.RELEASE));
+
 //List of Sounds
     suoniSasiccio.add("sounds/hotta.mp3");
   }
@@ -87,8 +89,17 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                   padding: const EdgeInsets.all(8),
                   child: FlatButton(
-                    onPressed: () => _audioCache.play("sounds/kundapaya.mp3"),
-                    child: Image(
+                 /*   onPressed: () {
+                      if (isSwitched) {
+                        _audioCache.play("sounds/kundapaya.mp3");
+                      } else {
+                        _audioCache.loop("sounds/kundapaya.mp3");
+                      }
+                    },*/
+                    onPressed: (){ _audioCache.play("sounds/kundapaya.mp3");},
+                    child: 
+                    
+                    Image(
                       image: AssetImage('assets/images/csk.png'),
                     ),
                   )),
@@ -102,8 +113,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: <Widget>[
                           Image(image: AssetImage('assets/images/csk.png')),
                           Text(
-                            'சிறிய உட்கார்ந்து',
-                            style: GoogleFonts.catamaran(
+                            'Cinna Sutu',
+                            style: GoogleFonts.aBeeZee(
                               textStyle: TextStyle(
                                   color: Colors.red, letterSpacing: .5),
                             ),
@@ -113,9 +124,21 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                   padding: const EdgeInsets.all(8),
                   child: FlatButton(
-                    onPressed: () => _audioCache.play("sounds/periemole.mp3"),
-                    child: Image(image: AssetImage('assets/images/csk.png')),
-                  )),
+                      onPressed: () {
+                        return _audioCache.play("sounds/periemole.mp3");
+                      },
+                      child: Column(
+                        children: <Widget>[
+                          Image(image: AssetImage('assets/images/csk.png')),
+                          Text(
+                            'Perie Molè',
+                            style: GoogleFonts.aBeeZee(
+                              textStyle: TextStyle(
+                                  color: Colors.red, letterSpacing: .5),
+                            ),
+                          )
+                        ],
+                      ))),
               Container(
                 padding: const EdgeInsets.all(8),
                 child: FlatButton(
@@ -124,6 +147,20 @@ class _MyHomePageState extends State<MyHomePage> {
                         _soundandwrite(context, suoniSasiccio[0], "ஜ"),
                     child: Image.asset('assets/images/csk.png')),
               ),
+              Container(
+                child: //this goes in as one of the children in our column
+                    Switch(
+                  value: isSwitched,
+                  onChanged: (value) {
+                    setState(() {
+                      isSwitched = value;
+                    });
+                  },
+                  activeTrackColor: Colors.lightGreenAccent,
+                  activeColor: Colors.green,
+                ),
+              ),
+
               /*Container(
                 child: RaisedButton(
                   textColor: Colors.black,
@@ -131,10 +168,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Text('New Phrases Coming Soon'),
                 ),
               )*/
-            ]
-            )
-            
-            );
+            ]));
   }
 
   _soundandwrite(BuildContext context, String _ad2, String parola) {
