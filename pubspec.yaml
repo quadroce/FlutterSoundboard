@@ -30,7 +30,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  documents_picker: ^1.0.0
+  
   google_fonts: ^0.3.9
 
   flutter_launcher_icons: "^0.7.3"

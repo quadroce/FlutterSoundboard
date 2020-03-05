@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'package:flutter/services.dart';
+import 'package:documents_picker/documents_picker.dart';
+
 
 
 //import 'package:ads/ads.dart';
@@ -12,7 +15,28 @@ import 'package:flutter_share/flutter_share.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+ Future<void> share() async {
+    await FlutterShare.share(
+      title: 'Example share',
+      text: 'Example share text',
+      linkUrl: 'https://flutter.dev/',
+      chooserTitle: 'Example Chooser Title'
+    );
+  }
+Future<void> shareFile() async {
+    List<dynamic> docs = await DocumentsPicker.pickDocuments;
+    if (docs == null || docs.isEmpty) return null;
+
+    await FlutterShare.shareFile(
+      title: 'Example share',
+      text: 'Example share text',
+      filePath: docs[0] as String,
+    );
+  }
+
   // This widget is the root of your application.
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,10 +124,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     },*/
                     onPressed: (){ _audioCache.play("sounds/kundapaya.mp3");},
                     child: 
-                    
+                    //                onPressed: shareFile,
+
                     Image(
                       image: AssetImage('assets/images/csk.png'),
                     ),
+                    
                   )),
               Container(
                   padding: const EdgeInsets.all(8),
@@ -151,7 +177,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Container(
                 child: //this goes in as one of the children in our column
-                    Switch(
+     FlatButton(
+                child: Text('Share local file'),
+           //     onPressed: ()=> shareFile(),
+              ),
+
+                
+                    /* Switch(
                   value: isSwitched,
                   onChanged: (value) {
                     setState(() {
@@ -160,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                   activeTrackColor: Colors.lightGreenAccent,
                   activeColor: Colors.green,
-                ),
+                ), */
               ),
 
               /*Container(
