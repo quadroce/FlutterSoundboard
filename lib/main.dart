@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter/services.dart';
 import 'package:documents_picker/documents_picker.dart';
-
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 
 
 //import 'package:ads/ads.dart';
@@ -15,25 +15,7 @@ import 'package:documents_picker/documents_picker.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
- Future<void> share() async {
-    await FlutterShare.share(
-      title: 'Example share',
-      text: 'Example share text',
-      linkUrl: 'https://flutter.dev/',
-      chooserTitle: 'Example Chooser Title'
-    );
-  }
-Future<void> shareFile() async {
-    List<dynamic> docs = await DocumentsPicker.pickDocuments;
-    if (docs == null || docs.isEmpty) return null;
-
-    await FlutterShare.shareFile(
-      title: 'Example share',
-      text: 'Example share text',
-      filePath: docs[0] as String,
-    );
-  }
-
+ 
   // This widget is the root of your application.
 
 
@@ -69,10 +51,29 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  
   AudioCache _audioCache;
   List<String> suoniSasiccio = List();
   bool isSwitched = true;
   final _scaffoldKey = GlobalKey<ScaffoldState>(); // new line
+Future<void> share() async {
+    await FlutterShare.share(
+      title: 'Example share',
+      text: 'Example share text',
+      linkUrl: 'https://flutter.dev/',
+      chooserTitle: 'Example Chooser Title'
+    );
+  }
+Future<void> shareFile() async {
+    List<dynamic> docs = await DocumentsPicker.pickDocuments;
+    if (docs == null || docs.isEmpty) return null;
+
+    await FlutterShare.shareFile(
+      title: 'Example share',
+      text: 'Example share text',
+      filePath: docs[0] as String,
+    );
+  }
 
   @override
   void initState() {
@@ -84,6 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 //List of Sounds
     suoniSasiccio.add("sounds/hotta.mp3");
+  
   }
 
   @override
@@ -179,7 +181,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: //this goes in as one of the children in our column
      FlatButton(
                 child: Text('Share local file'),
-           //     onPressed: ()=> shareFile(),
+           //  onPressed: () { return shareFile();},
+          
+              onPressed: () async => await _shareSound(),
+
+              
               ),
 
                 
@@ -204,6 +210,17 @@ class _MyHomePageState extends State<MyHomePage> {
               )*/
             ]));
   }
+
+ Future<void> _shareSound() async {
+    try {
+      final ByteData bytes = await rootBundle.load('assets/sounds/bem.mp3');
+      await Share.file(
+          'Sound', 'bem.mp3', bytes.buffer.asUint8List(), 'audio/*');
+    } catch (e) {
+      print('error: $e');
+    }
+  }
+
 
   _soundandwrite(BuildContext context, String _ad2, String parola) {
     final snackBar = SnackBar(
